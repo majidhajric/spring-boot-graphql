@@ -1,0 +1,30 @@
+type Query {
+  bookById(id: ID): Book!
+  findAllBooks:[Book]!
+  findAllAuthors:[Author]!
+}
+
+type Mutation {
+  newAuthor(firstName: String!, lastName: String): Author!
+  newBook(title: String! , pageCount: Int , authorId: ID): Book!
+  deleteBook(id: ID): Boolean
+}
+
+type Subscription {
+  bookCreated: Book!
+}
+
+type Book {
+  id: ID
+  title: String
+  pageCount: Int
+  author(id:ID): Author
+}
+
+type Author {
+  id: ID
+  firstName: String
+  lastName: String
+}
+
+scalar UUID
