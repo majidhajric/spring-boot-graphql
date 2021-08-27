@@ -1,11 +1,11 @@
 package dev.demo.graphql.resolver;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import dev.demo.graphql.exceptions.BookNotFoundException;
 import dev.demo.graphql.model.Author;
 import dev.demo.graphql.model.Book;
 import dev.demo.graphql.repository.AuthorRepository;
 import dev.demo.graphql.repository.BookRepository;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

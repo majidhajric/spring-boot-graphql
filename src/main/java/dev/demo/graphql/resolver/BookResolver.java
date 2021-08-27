@@ -1,9 +1,9 @@
 package dev.demo.graphql.resolver;
 
-import com.coxautodev.graphql.tools.GraphQLResolver;
 import dev.demo.graphql.model.Author;
 import dev.demo.graphql.model.Book;
 import dev.demo.graphql.repository.AuthorRepository;
+import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

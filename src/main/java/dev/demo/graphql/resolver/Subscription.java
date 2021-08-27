@@ -1,7 +1,7 @@
 package dev.demo.graphql.resolver;
 
-import com.coxautodev.graphql.tools.GraphQLSubscriptionResolver;
 import dev.demo.graphql.model.Book;
+import graphql.kickstart.tools.GraphQLSubscriptionResolver;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
