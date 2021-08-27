@@ -20,7 +20,7 @@ public class GraphqlApplication {
 
 	@Bean
 	public CommandLineRunner demo(AuthorRepository authorRepository, BookRepository bookRepository) {
-		return (args) -> {
+		return args -> {
 			Author author = new Author();
 			author.setFirstName("Me");
 			author.setLastName("Developer");

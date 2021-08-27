@@ -1,17 +1,14 @@
 package dev.demo.graphql.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import dev.demo.graphql.event.BookCreatedEvent;
 import dev.demo.graphql.model.Author;
 import dev.demo.graphql.model.Book;
 import dev.demo.graphql.repository.AuthorRepository;
 import dev.demo.graphql.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Sinks.Many;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
@@ -19,15 +16,13 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class Mutation implements GraphQLMutationResolver, ApplicationEventPublisherAware {
-
-    private final ResourceLoader resourceLoader;
+public class Mutation implements GraphQLMutationResolver {
 
     private final BookRepository bookRepository;
 
     private final AuthorRepository authorRepository;
 
-    private ApplicationEventPublisher eventPublisher;
+    private final Many<Book> bookSink;
 
     public Author newAuthor(String firstName, String lastName) {
         Author author = new Author();
@@ -48,7 +43,7 @@ public class Mutation implements GraphQLMutationResolver, ApplicationEventPublis
 
         book = bookRepository.save(book);
 
-        eventPublisher.publishEvent(new BookCreatedEvent(book));
+        bookSink.tryEmitNext(book);
 
         return book;
     }
@@ -56,10 +51,5 @@ public class Mutation implements GraphQLMutationResolver, ApplicationEventPublis
     public boolean deleteBook(UUID id) {
         bookRepository.deleteById(id);
         return true;
-    }
-
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.eventPublisher = applicationEventPublisher;
     }
 }
